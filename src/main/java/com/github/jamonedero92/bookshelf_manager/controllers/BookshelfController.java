@@ -17,4 +17,9 @@ public class BookshelfController {
 
         return "books-list";
     }
+
+    @GetMapping("/add-book")
+    public String showAddBook(){
+        return "book-view";
+    }
 }
