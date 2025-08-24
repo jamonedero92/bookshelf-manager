@@ -12,7 +12,7 @@ public class BookshelfController {
         return "home";
     }
 
-    @GetMapping("/books-list")
+    @GetMapping("/list-books")
     public String showBooksList(ModelMap model){
 
         return "books-list";
