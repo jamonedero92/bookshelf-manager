@@ -1,7 +1,16 @@
 package com.github.jamonedero92.bookshelf_manager.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
+
+   @Id
+   @GeneratedValue
    private Integer ID;
+
    private String Title;
    private String author;
    private String genre;
