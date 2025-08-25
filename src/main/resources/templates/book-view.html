@@ -54,6 +54,16 @@
             <!--   <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</div> -->
           </div>
 
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select th:field="*{status}" class="form-select">
+                <option th:each="s : ${T(com.github.jamonedero92.bookshelf_manager.model.CompletionStatus).values()}"
+                        th:value="${s}"
+                        th:text="${s}">
+                </option>
+            </select>
+        </div>
+
           <input type="submit" class="btn btn-success">
       </form>
 

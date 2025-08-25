@@ -23,7 +23,12 @@ public class BookshelfController {
         return "home";
     }
 
-
+    @GetMapping("/list-books")
+    public String showBooksList(ModelMap model){
+        List<Book> books= bookRepository.findAll();
+        model.put("books",books);
+        return "books-list";
+    }
 
     @GetMapping("/add-book")
     public String showAddBook(ModelMap model){
