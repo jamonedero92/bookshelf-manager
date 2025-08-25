@@ -3,6 +3,8 @@ package com.github.jamonedero92.bookshelf_manager.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
+
 
 @Entity
 public class Book {
@@ -11,10 +13,26 @@ public class Book {
     @GeneratedValue
     private Integer ID;
     private String username;
+
+    @NotBlank
+    @Size(max=100)
     private String title;
+
+    @NotBlank
+    @Size(max=100)
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]+$")
     private String author;
+
+    @NotBlank
+    @Size(max=50)
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]+$")
     private String genre;
+
+    @Min(1000)
+    @Max(2100)
     private int year;
+
+    @NotNull
     private CompletionStatus status;
 
     public Book() {

@@ -2,6 +2,7 @@ package com.github.jamonedero92.bookshelf_manager.controllers;
 
 import com.github.jamonedero92.bookshelf_manager.model.Book;
 import com.github.jamonedero92.bookshelf_manager.model.BookRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -38,17 +39,27 @@ public class BookshelfController {
     }
 
     @PostMapping("/save-book")
-    public String saveBook(@ModelAttribute("Book") Book book) {
-       /* if(result.hasErrors()){
+    public String saveBook(@Valid @ModelAttribute("book")  Book book, BindingResult result) throws Exception {
+        if (result.hasErrors()) {
             return "book-view";
-        }*/
-
-        if (book.getID() == null) {
-            book.setAuthor("jorge");
-            bookRepository.save(book);
-
         }
 
+        if (book.getID() == null) {
+            book.setUsername("jorge");
+            bookRepository.save(book);
+        } else {
+            Book saveBook = bookRepository.findById(book.getID()).orElseThrow(() -> new IllegalArgumentException("This book doesn't exist"));
+            if (!saveBook.getUsername().equals("jorge")) {
+                throw new IllegalAccessException("You cannot execute this action with your current privileges.");
+            }
+            saveBook.setUsername("jorge");
+            saveBook.setAuthor(book.getAuthor());
+            saveBook.setTitle(book.getTitle());
+            saveBook.setGenre(book.getGenre());
+            saveBook.setYear(book.getYear());
+            saveBook.setStatus(book.getStatus());
+            bookRepository.save(saveBook);
+        }
         return "redirect:list-books";
     }
 
@@ -61,9 +72,9 @@ public class BookshelfController {
     @GetMapping("/update-book")
     public String showUpdateBook(@RequestParam Integer ID, ModelMap model) {
 
-            Book book = bookRepository.findById(ID).orElseThrow(() -> new IllegalArgumentException("Book not found"));
-            model.put("book", book);
-            return "book-view";
+        Book book = bookRepository.findById(ID).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+        model.put("book", book);
+        return "book-view";
 
     }
 }

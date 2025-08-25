@@ -31,31 +31,33 @@
     <form method="post" th:action="@{/save-book}" th:object="${book}" class="container mt-4">
 
         <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input th:field="*{title}" required="required" class="form-control"/>
-            <!--    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</div> -->
-           </div>
-
-           <div class="mb-3">
-               <label class="form-label">Author</label>
-               <input th:field="*{author}" required="required" class="form-control"/>
-            <!--   <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</div> -->
+            <label class="form-label">Title:</label>
+            <input th:field="*{title}" required="required" maxlength="100" class="form-control"/>
+            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</div>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Genre</label>
-            <input th:field="*{genre}" required="required" class="form-control"/>
-            <!--   <div th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">Error</div> -->
-          </div>
-
-          <div class="mb-3">
-              <label class="form-label">Year</label>
-              <input type="number" th:field="*{year}" required="required" class="form-control"/>
-            <!--   <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</div> -->
-          </div>
+            <label class="form-label">Author:</label>
+            <input th:field="*{author}" required="required" maxlength="100" pattern="[a-zA-ZÀ-ÿ\s]+"
+                   class="form-control"/>
+            <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</div>
+        </div>
 
         <div class="mb-3">
-            <label class="form-label">Status</label>
+            <label class="form-label">Genre:</label>
+            <input th:field="*{genre}" required="required" maxlength="50" pattern="[a-zA-ZÀ-ÿ\s]+"
+                   class="form-control"/>
+            <div th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Year:</label>
+            <input type="number" th:field="*{year}" required="required" min="1000" max="2100" class="form-control"/>
+            <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status:</label>
             <select th:field="*{status}" class="form-select" required="required">
                 <option th:each="s : ${T(com.github.jamonedero92.bookshelf_manager.model.CompletionStatus).values()}"
                         th:value="${s}"
@@ -63,13 +65,14 @@
                 </option>
             </select>
         </div>
+        <input type="hidden" th:field="*{ID}">
 
-          <input type="submit" class="btn btn-success">
-      </form>
+        <input type="submit" class="btn btn-success">
+    </form>
 
-  </div>
+</div>
 
-  <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
-  <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
-  </body>
-  </html>
+<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+</body>
+</html>
