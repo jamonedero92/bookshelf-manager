@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org"
 
 >
 <head>
@@ -9,7 +9,7 @@ xmlns:th="http://www.thymeleaf.org"
     <title>Book</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
@@ -25,12 +25,41 @@ xmlns:th="http://www.thymeleaf.org"
     </ul>
 </nav>
 
-<div class="container">
+<div class="container ">
+    <h2 class="h2 mb-2">Please insert the book's info:</h2>
 
+    <form method="post" th:action="@{/save-book}" th:object="${book}" class="container mt-4">
 
-</div>
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input th:field="*{title}" required="required" class="form-control"/>
+            <!--    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</div> -->
+           </div>
 
-<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
-<script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
-</body>
-</html>
+           <div class="mb-3">
+               <label class="form-label">Author</label>
+               <input th:field="*{author}" required="required" class="form-control"/>
+            <!--   <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</div> -->
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Genre</label>
+            <input th:field="*{genre}" required="required" class="form-control"/>
+            <!--   <div th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">Error</div> -->
+          </div>
+
+          <div class="mb-3">
+              <label class="form-label">Year</label>
+              <input type="number" th:field="*{year}" required="required" class="form-control"/>
+            <!--   <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</div> -->
+          </div>
+
+          <input type="submit" class="btn btn-success">
+      </form>
+
+  </div>
+
+  <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+  <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+  </body>
+  </html>

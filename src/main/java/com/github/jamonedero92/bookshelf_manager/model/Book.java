@@ -7,73 +7,82 @@ import jakarta.persistence.Id;
 @Entity
 public class Book {
 
-   @Id
-   @GeneratedValue
-   private Integer ID;
+    @Id
+    @GeneratedValue
+    private Integer ID;
+    private String username;
+    private String title;
+    private String author;
+    private String genre;
+    private int year;
+    private CompletionStatus status;
 
-   private String Title;
-   private String author;
-   private String genre;
-   private int year;
-   private CompletionStatus status;
+    public Book() {
+    }
 
-   public Book() {
-   }
+    public Book(Integer ID, String username, String title, String author, String genre, int year, CompletionStatus status) {
+        this.ID = ID;
+        this.username = username;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.year = year;
+        this.status = status;
+    }
 
-   public Book(Integer ID, String title, String author, String genre, int year, CompletionStatus status) {
-      this.ID = ID;
-      Title = title;
-      this.author = author;
-      this.genre = genre;
-      this.year = year;
-      this.status = status;
-   }
+    public Integer getID() {
+        return ID;
+    }
 
-   public Integer getID() {
-      return ID;
-   }
+    public String getUsername() {
+        return username;
+    }
 
-   public void setID(Integer ID) {
-      this.ID = ID;
-   }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-   public String getTitle() {
-      return Title;
-   }
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
 
-   public void setTitle(String title) {
-      Title = title;
-   }
+    public String getTitle() {
+        return title;
+    }
 
-   public String getAuthor() {
-      return author;
-   }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-   public void setAuthor(String author) {
-      this.author = author;
-   }
+    public String getAuthor() {
+        return author;
+    }
 
-   public String getGenre() {
-      return genre;
-   }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-   public void setGenre(String genre) {
-      this.genre = genre;
-   }
+    public String getGenre() {
+        return genre;
+    }
 
-   public int getYear() {
-      return year;
-   }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
-   public void setYear(int year) {
-      this.year = year;
-   }
+    public int getYear() {
+        return year;
+    }
 
-   public CompletionStatus getStatus() {
-      return status;
-   }
+    public void setYear(int year) {
+        this.year = year;
+    }
 
-   public void setStatus(CompletionStatus status) {
-      this.status = status;
-   }
+    public CompletionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CompletionStatus status) {
+        this.status = status;
+    }
 }
