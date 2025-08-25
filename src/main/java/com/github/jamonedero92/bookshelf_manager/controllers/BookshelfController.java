@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -25,8 +26,8 @@ public class BookshelfController {
     }
 
     @GetMapping("/list-books")
-    public String showBooksList(ModelMap model) {
-        List<Book> books = bookRepository.findAll();
+    public String showBooksList(ModelMap model, Principal principal) {
+        List<Book> books = bookRepository.findAllByUsername(principal.getName());
         model.put("books", books);
         return "books-list";
     }
@@ -39,20 +40,20 @@ public class BookshelfController {
     }
 
     @PostMapping("/save-book")
-    public String saveBook(@Valid @ModelAttribute("book")  Book book, BindingResult result) throws Exception {
+    public String saveBook(@Valid @ModelAttribute("book")  Book book, BindingResult result, Principal principal) throws Exception {
         if (result.hasErrors()) {
             return "book-view";
         }
 
         if (book.getID() == null) {
-            book.setUsername("jorge");
+            book.setUsername(principal.getName());
             bookRepository.save(book);
         } else {
             Book saveBook = bookRepository.findById(book.getID()).orElseThrow(() -> new IllegalArgumentException("This book doesn't exist"));
-            if (!saveBook.getUsername().equals("jorge")) {
+            if (!saveBook.getUsername().equals(principal.getName())) {
                 throw new IllegalAccessException("You cannot execute this action with your current privileges.");
             }
-            saveBook.setUsername("jorge");
+            saveBook.setUsername(principal.getName());
             saveBook.setAuthor(book.getAuthor());
             saveBook.setTitle(book.getTitle());
             saveBook.setGenre(book.getGenre());
